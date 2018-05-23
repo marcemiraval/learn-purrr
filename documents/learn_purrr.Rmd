@@ -146,6 +146,9 @@ Specifying type makes it easier to wrangle different types of outputs suppose th
 
 ```{r}
 map_df(mtcars, mean, na.rm = T)
+
+# Cool thing purrr is very specific about the object we are getting from the function.
+# It's not going to happen what happens to me before. So here for example we are getting a dataframe.
 ```
 
 `map` can also be extended to deal with multiple input lists
@@ -222,6 +225,8 @@ Say we want to be more specific about our call to `paste` from the above example
 ```{r}
 
 map2_chr(c('one','two','red','blue'), c('fish'), ~paste(.x,.y))
+
+# for three lists.... go to pmap..later.
 
 ```
 
@@ -405,6 +410,8 @@ Huh, why didn't that work? Passing a string to map actually tells `purrr` to div
 got_chars[1:5] %>%
   map(`[`, c('name', 'allegiances'))
 
+# `[` here is saying R that the function is []
+
 ```
 
 In this case, `[` is saying use `[]` as a function.
@@ -445,6 +452,14 @@ got_chars %>%
   map(`[`,c('name','allegiances')) %>%
   purrr::keep(~stringr::str_detect(.$name, 'Lannister')) %>%
   listviewer::jsonedit()
+
+# keep is the equvalent to the filter dplyr function
+
+# that .$name reduces space, but I could have that in a function outside
+
+# anonymos functions is the name of this.
+
+# Also, in the example of map1 and map2.... .x, .y is how it stores the lists.
 ```
 
 
@@ -878,6 +893,9 @@ diagnose_length <- length_data %>%
   map(~safe_log(.$lengths))
 
 head(diagnose_length,2)
+
+# safely is the first step. The second option is using browser()
+# browser allows me to go to the local environment in the fuction and see where is the error.
 
 ```
 
